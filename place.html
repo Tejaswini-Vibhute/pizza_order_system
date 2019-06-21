@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Decarita pizza || Order Food</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            label{
+                height:30px;
+                letter-spacing: 2px;
+                font-size: 18px;
+                width: 100%;	}
+            input
+            {
+              
+                height:30px;
+                font-size: 18px;
+            }
+
+            .form1
+            {
+                display: block;
+                width:50%;
+                border: 1px;
+                padding: 8px;
+                margin: 5px;
+                border: 2px solid gray;
+                border-radius: 5px;
+                background: url('mountain.jpg');
+            }
+            .btn1
+            {
+                height: 30px;
+                margin: 5px;
+                padding: 8px;
+                font-weight: bold;
+                background-color: #4CAF50;
+                color: white;
+
+            }
+	    
+            h1
+            {
+                color: #4CAF50;
+            }
+            </style>
+            </head>
+            <body>
+                <h1>Accept Order</h1>
+                
+                <form method="POST" class="form1" action="generateBill.jsp" onchange="return calculateTotal()">
+                    Enter username : <input type="text" name="uname"/>
+                    <h3>Menu</h3>
+                    <table width="100%">
+                        <tr><th>Item Name</th><th>Quantity</th><th>Cost</th><th>Total</th></tr>
+			<tr><td><h2>Pizza</h2></td></tr>
+                        <tr>
+                            <td>Mexican<input type="hidden" name="itemName" value="Mexican-250"></td>
+                            <td><input type="number" name="itemCount"   value="0" placeholder="0" onsubmit="return calculateTotal()"></td>
+                            <td class="itemPrice">250</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Americano<input type="hidden" name="itemName" value="Americano-200"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">200</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Italiano<input type="hidden" name="itemName" value="Italiano-280"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">280</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+			<tr><td><h2>Toppings</h2></td></tr>
+			<tr>
+                            <td>Mushroom<input type="hidden" name="itemName" value="Mushroom-100"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">100</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+			<tr>
+                            <td>Corn<input type="hidden" name="itemName" value="Corn-80"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">80</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+			<tr>
+                            <td>Onion<input type="hidden" name="itemName" value="Onion-90"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">90</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+                        <tr></tr>
+			<tr><td><h2>Desserts</h2></td></tr>
+			<tr>
+                            <td>Corolla<input type="hidden" name="itemName" value="Corolla-220"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">220</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+			<tr>
+                            <td>Chocolate<input type="hidden" name="itemName" value="Chocolate-280"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">280</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+			<tr>
+                            <td>Classic<input type="hidden" name="itemName" value="Classic-290"></td>
+                            <td><input type="number" name="itemCount" value="0" placeholder="0"></td>
+                            <td class="itemPrice">290</td>
+                            <td><input type="number" name="itemTotal" value="0" placeholder="0"></td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td><input type="number" name="total" id="total" placeholder="0"></td>
+                        </tr>
+			<tr>
+			<td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button type="button" name="Total" value="getTotal" onclick="return finat()" >Total Payment</button></td>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="submit" name="submit" value="Place Order"></td>
+                        </tr>
+                    </table>
+               
+            </form>
+                <script>
+
+//alert(final);
+var final=0;
+                    function calculateTotal()
+                    {		
+		
+                        var itemPs=document.getElementsByClassName("itemPrice");
+
+                        for(var i=0;i<itemPs.length;i++)
+                        {
+                            var cost=parseInt(document.getElementsByClassName("itemPrice")[i].innerHTML);
+                            
+                            var quantity=parseInt(document.getElementsByName("itemCount")[i].value);
+                           //alert(cost +"  "+quantity);
+                           var total=cost*quantity;
+//alert(total);
+                           //window.final=window.final+total;
+                    // alert(window.final);
+                            document.getElementsByName("itemTotal")[i].value=total;
+                        }
+                        //document.getElementById("total").value=window.final;
+			
+			//alert("Items checked!!! New Total:- "+window.final);
+				
+                        return true;
+                    }
+		  function finat()
+		{	
+			var itemPs=document.getElementsByClassName("itemPrice");
+			var total=0;
+			for(var i=0;i<itemPs.length;i++)
+			{
+			    var cost=parseInt(document.getElementsByClassName("itemPrice")[i].innerHTML);
+                            
+                            var quantity=parseInt(document.getElementsByName("itemCount")[i].value);
+                           //alert(cost +"  "+quantity);
+                            total=total+cost*quantity;
+			}
+			window.final=total;
+			document.getElementById("total").value=window.final;
+			
+			alert("All Items checked!!! Grant Total:- "+window.final);
+		}
+			//alert(window.final);	
+                    </script>
+            </body>
+            </html>
